@@ -113,13 +113,6 @@ class _ToDoListState extends State<ToDoList> {
                     ),
                   ],
                 ),
-                // Tạo nút check thời gian
-                ElevatedButton(
-                  child: const Text('Check Time'),
-                  onPressed: () {
-                    checkTime();
-                  },
-                )
               ],
             ),
           ),
