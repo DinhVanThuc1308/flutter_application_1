@@ -3,16 +3,51 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/ToDoList.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key, required Color backgroundColor}) : super(key: key);
+  const HomePage({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Home',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Business',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: School',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Settings',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ToDoList()),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orangeAccent,
       appBar: AppBar(
         title: const Text('Manager Works'),
       ),
@@ -37,7 +72,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             ListTile(
-              title: const Text('Home'),
+              title: const Text('Công việc'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(context,
@@ -45,13 +80,31 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             ListTile(
-              title: const Text('About'),
+              title: const Text('Học tập'),
               onTap: () {
                 Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ToDoList()));
               },
             ),
             ListTile(
-              title: const Text('Contact'),
+              title: const Text('Giải trí'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ToDoList()));
+              },
+            ),
+            ListTile(
+              title: const Text('Khác'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ToDoList()));
+              },
+            ),
+            ListTile(
+              title: const Text('Thông tin về app'),
               onTap: () {
                 Navigator.pop(context);
               },
@@ -61,6 +114,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
+          SizedBox(height: 16),
           const Text(
             'Quản lý thư mục của bạn',
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -90,7 +144,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ToDoList()));
+                      },
                       icon: const Icon(Icons.book),
                       label: const Text('Học'),
                       // chỉnh size elvatedbutton
@@ -105,7 +164,12 @@ class _HomePageState extends State<HomePage> {
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ToDoList()));
+                      },
                       icon: const Icon(Icons.audiotrack),
                       label: const Text('Giải trí'),
                       // chỉnh size elvatedbutton
@@ -114,7 +178,12 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     ElevatedButton.icon(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ToDoList()));
+                      },
                       icon: const Icon(Icons.difference),
                       label: const Text('Khác '),
                       // chỉnh size elvatedbutton
@@ -128,6 +197,33 @@ class _HomePageState extends State<HomePage> {
             ]),
           ),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Công việc',
+            backgroundColor: Colors.blue,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.audiotrack),
+            label: 'Giải trí',
+            backgroundColor: Colors.green,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            label: 'học',
+            backgroundColor: Colors.purple,
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.difference),
+            label: 'Khác',
+            backgroundColor: Colors.pink,
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
     );
   }
